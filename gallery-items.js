@@ -66,15 +66,22 @@ const images = [
 
 const galleryRef = document.querySelector('.gallery.js-gallery');
 
-const openImage = (function(element){
+const openImage = (function (element) {
+  if (element.target.nodeName !== "IMG") {
+    return;
+  };
   modaleOpen.classList.toggle('is-open');
-
+  
   imageCurrent.src = images[element.target.id].original
 });
 
-images.forEach ( function (image, index) {
-  galleryRef.insertAdjacentHTML('afterbegin', `<li class="gallery__item"><img src="${image.preview}" id="${index}" alt="${image.description}" class="gallery__image"></li>`);
+let galleryHTML = '';
+
+images.forEach(function (image, index) {
+  galleryHTML += `<li class="gallery__item"><img src="${image.preview}" id="${index}" alt="${image.description}" class="gallery__image"></li>`;
 });
+
+galleryRef.insertAdjacentHTML('beforeend', galleryHTML);
 
 
 
